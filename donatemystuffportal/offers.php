@@ -52,6 +52,21 @@ if(isset($_SESSION['userid']))
       </nav>
     </header>
     <div id="site_content">
+    
+    if($_GET['action']=='donor_information') {
+    
+    
+    
+    ?>
+    <h2>Donor Information</h2>
+    
+    
+    
+    
+   <?php } 
+   
+   else { ?>
+    
      <div class="contentV2">
         <h1>Offers</h1>
         <div class="content_item">
@@ -81,7 +96,7 @@ if(isset($_SESSION['userid']))
 		foreach($data->offers as $offers) {
 		 echo  '<tr>';
 		 echo  '<td>';
-		 echo  $offers->donorid . PHP_EOL ;
+		 echo  '<a href="?action=donor_information&id='.$offers->donorid . PHP_EOL.'"><b>'.$offers->donorid . PHP_EOL.'</b></a>' ;
 		 echo  '</td>';
 		 echo  '<td>';
 		 echo  $offers->offerdate . PHP_EOL ;
@@ -114,6 +129,8 @@ if(isset($_SESSION['userid']))
 	 </tbody>
 </table>
         </div>
+        
+   <?php }  ?>
       </div>
      </div>
     <footer>
