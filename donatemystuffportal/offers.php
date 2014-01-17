@@ -1,3 +1,9 @@
+<?php 
+
+session_start(); 
+if(isset($_SESSION['userid']))
+{
+?>
 <!DOCTYPE HTML>
 <html>
 
@@ -37,10 +43,11 @@
           <li><a href="#">Beneficiaries</a>
             <ul>
               <li><a href="#">Center 1</a></li>
-              <li><a href="#">Center 2</a>
+              <li><a href="#">Center 2</a></li>
             </ul>
           </li>
           <li><a href="#">Contact Us</a></li>
+		  <li><a href="logout.php">Logout</a></li>
         </ul>
       </nav>
     </header>
@@ -130,3 +137,11 @@
   </script>
 </body>
 </html>
+<?php
+}
+else
+{
+//user session not set.
+header("Location: login.php");
+}
+?>

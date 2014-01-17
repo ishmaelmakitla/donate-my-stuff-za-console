@@ -29,6 +29,12 @@ handlers:
   
 - url: /offers.php
   script: offers.php
+  
+ - url: /manregister.php
+  script: manregister.php
+  
+- url: /logout.php
+  script: logout.php
 
 - url: .*
   script: login.php
