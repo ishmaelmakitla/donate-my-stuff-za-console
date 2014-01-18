@@ -1,8 +1,8 @@
 <?php
 
-//session_start();
-//if(isset($_SESSION['userid']))
-//{
+session_start();
+if(isset($_SESSION['userid']))
+{
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -170,11 +170,11 @@ oTable = $('#requests').dataTable({
 </body>
 </html>
 <?php
-/*
+
 }
 else
 {
 //user session not set.
 header("Location: login.php");
-} */
+} 
 ?>
