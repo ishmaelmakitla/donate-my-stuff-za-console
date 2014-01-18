@@ -54,10 +54,10 @@ if(isset($_SESSION['userid']))
 <div id="site_content">
 <?php
 if($_GET['action']=='beneficent_information') { //GET Method implementation, viewing information for a single user
-//$manid=mysql_escape_string($_SESSION['userid']);
-$benid=mysql_escape_string($_GET['id']);
+$manid=mysql_escape_string($_SESSION['userid']);  //This is the manager ID from login session
+$benid=mysql_escape_string($_GET['id']);       //This ID is obtained from the list
 
-$json = file_get_contents('http://za-donate-my-stuff.appspot.com/beneficiaries?beneficiary='.$benid.'&managerid=95a7f483-3571-44e6-90af-af6de72664d6');
+$json = file_get_contents('http://za-donate-my-stuff.appspot.com/beneficiaries?beneficiary='.$benid.'&managerid='.$manid');
                 $data = json_decode($json);
                 
                 //parse the json of requests
@@ -70,9 +70,15 @@ $json = file_get_contents('http://za-donate-my-stuff.appspot.com/beneficiaries?b
                          <h1>Information about the beneficent: <?php echo $beficent->name. PHP_EOL.' '.$beficent->surname. PHP_EOL; ?></h1>
                          <div class="content_item">
                           <p> <b><?php echo $beficent->name. PHP_EOL.' '.$beficent->surname. PHP_EOL; ?></b> is our beneficent and can be contacted on:
-			  <br /> Telephone: <?php echo $beficent->telephone. PHP_EOL; ?>
-			  <br />Cellphone: <?php echo $beficent->mobile. PHP_EOL; ?>
+			  <br /> Telephone: <?php echo $beficent->telephone. PHP_EOL; ?>, <a href="tel:<?php echo $beficent->mobile. PHP_EOL; ?>">Call</a>
+			  <br />Cellphone: <?php echo $beficent->mobile. PHP_EOL; ?>, <a href="tel:<?php echo $beficent->mobile. PHP_EOL; ?>">Call</a>
 			  <br />Email Address: <?php echo $beficent->email. PHP_EOL; ?>
+			  
+			  <!-- Handling the donation life cycle in here, below -->
+			  
+			  <!-- 
+			  We need to call and tellthem that we received donations on their behalf.
+			  -->
 			  
 			  
 			  </div>
