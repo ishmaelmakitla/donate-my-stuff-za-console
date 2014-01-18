@@ -53,10 +53,23 @@ if(isset($_SESSION['userid']))
     </header>
     <div id="site_content">
     
-    if($_GET['action']=='donor_information') {
+    if($_GET['action']=='donor_information') {  //GET Method implementation, viewing information for a single user
+     //$manid=mysql_escape_string($_SESSION['userid']);
+     $donid=mysql_escape_string($_GET['id']);
     
-    
-    
+      $json = file_get_contents('http://za-donate-my-stuff.appspot.com/donors?donorid='.$donid.'&managerid=95a7f483-3571-44e6-90af-af6de72664d6'); 
+		$data = json_decode($json);
+		
+		//parse the json of requests
+		//We will show the following tags (BeneficiaryID, Name, GenderCode, Size, Age, and Age Restrictions)
+		//var_dump($data);
+		
+		foreach($data->donors as $donor) {
+		 
+		 echo  $donor->name. PHP_EOL ;
+		 
+	
+		}
     ?>
     <h2>Donor Information</h2>
     
