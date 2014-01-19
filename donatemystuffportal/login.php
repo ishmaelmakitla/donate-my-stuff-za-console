@@ -106,8 +106,8 @@ session_start();
           ?>
           <form id="contact" action="login.php" method="post">
             <div class="form_settings">
-              <p><span>Email Address</span><input class="contact" type="text" name="your_email" value="<?php echo $email; ?>" /></p>
-              <p><span>Password</span><input class="contact" type="password"  name="your_password" value="<?php echo $password; ?>" /></p>
+              <p><span>Email Address</span><input class="contact" type="text" name="your_email" placeholder="<?php echo $email; ?>" /></p>
+              <p><span>Password</span><input class="contact" type="password"  name="your_password" placeholder="<?php echo $password; ?>" /></p>
               <p style="line-height: 1.7em;">To help prevent spam and automated logins, please enter the answer to this question:</p>
               <p><span><?php echo $number_1; ?> + <?php echo $number_2; ?> = ?</span><input type="text" name="user_answer" /><input type="hidden" name="answer" value="<?php echo $answer; ?>" /></p>
               <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="login_submitted" value="Login" /></p>
