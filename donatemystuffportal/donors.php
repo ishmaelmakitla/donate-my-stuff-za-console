@@ -1,7 +1,5 @@
 <?php
-
 session_start();
-#check if managerid session is set
 if(isset($_SESSION['userid']))
 {
 ?>
@@ -9,7 +7,7 @@ if(isset($_SESSION['userid']))
 <html>
 
 <head>
-<title>Donate My Stuff Portal:.List of Beneficiaries.:</title>
+<title>Donate My Stuff Portal::.Donors.::</title>
 <meta name="description" content="website description" />
 <meta name="keywords" content="website keywords, website keywords" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -28,7 +26,7 @@ if(isset($_SESSION['userid']))
 <div id="logo_text">
 <!-- class="logo_colour", allows you to change the colour of the text -->
 <h1><a href="index.html">Donate-My-Stuff Management Portal</a></h1>
-<h2>"Making a difference with what we have".</h2>
+<h2>"Making a difference with what we have"</h2>
 </div>
 <form method="post" action="#" id="search">
 <input class="search" type="text" name="search_field" value="search....." onclick="javascript: document.forms['search'].search_field.value=''" />
@@ -40,71 +38,76 @@ if(isset($_SESSION['userid']))
 <li><a href="home.php">Home</a></li>
 <li><a href="requests.php">Requests</a></li>
 <li><a href="offers.php">Offers</a></li>
-<li><a href="donors.php">Donors</a></li>
-<li class="current"><a href="#">Beneficiaries</a></li>
+<li class="current"><a href="#">Donors</a></li>
+<li><a href="beneficiaries.php">Beneficiaries</a></li>
 <li><a href="#">Contact Us</a></li>
 <li><a href="logout.php">Logout</a></li>
 </ul>
 </nav>
 </header>
 <div id="site_content">
-<?php
-if($_GET['action']=='beneficent_information') { //GET Method implementation, viewing information for a single user
-//$manid=mysql_escape_string($_SESSION['userid']);
-$benid=mysql_escape_string($_GET['id']);
-
-$json = file_get_contents('http://za-donate-my-stuff.appspot.com/beneficiaries?beneficiary='.$benid.'&managerid='.$_SESSION['userid']);
-                $data = json_decode($json);
-                
-                //parse the json of requests
-                //We will show the following tags (BeneficiaryID, Name, GenderCode, Size, Age, and Age Restrictions)
-                            
-                foreach($data->beneficiaries as $beficent) { ?>
-             
-                  <div class="content">
-                         <h1>Information about the beneficiary: <?php echo $beficent->name. PHP_EOL.' '.$beficent->surname. PHP_EOL; ?></h1>
-                         <div class="content_item">
-                          <p> <b><?php echo $beficent->name. PHP_EOL.' '.$beficent->surname. PHP_EOL; ?></b> is our beneficiary and can be contacted on:
-							  <br />Telephone: <?php echo $beficent->telephone. PHP_EOL; ?>
-							  <br />Cellphone: <?php echo $beficent->mobile. PHP_EOL; ?>
-							  <br />Email Address: <?php echo $beficent->email. PHP_EOL; ?>
-			  
-			  
-						</div>
-				</div>
-        
-            <?php    }
-?>
-
-<?php }
-   
-   else { ?>
 <div class="contentV2">
-<h1>List of Beneficiaries</h1>
+<h1>List of Donors</h1>
 <div class="content_item">
-                <?php
-                $json = file_get_contents('http://za-donate-my-stuff.appspot.com/donationoffers');
+                <table id="donors">
+                <thead>
+<tr>
+						<th>Name</th>
+                        <th>Surname</th>
+						<th>Mobile</th>
+						<th>Telephone</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th>Province</th>
+                        <th>Country</th>
+</tr>
+</thead>
+<tbody>
+<?php
+                $json = file_get_contents('http://za-donate-my-stuff.appspot.com/donors?managerid='.$_SESSION['userid']);
                 $data = json_decode($json);
                 
                 //parse the json of requests
                 //We will show the following tags (BeneficiaryID, Name, GenderCode, Size, Age, and Age Restrictions)
                 //var_dump($data);
                 
-                foreach($data->offers as $offers) {
-                
-                 echo '<li><a href="?action=beneficent_information&id='.$offers->donorid . PHP_EOL.'"><b>'.$offers->donorid . PHP_EOL.'</b></a><br /><br /></li>' ;
-                
-                }
-
-                ?>
-
+                foreach($data->donors as $donors) {
+                 echo '<tr>';
+                 echo '<td>';
+                echo $donors->name . PHP_EOL ;
+                 echo '</td>';
+                 echo '<td>';
+                 echo $donors->surname . PHP_EOL ;
+                 echo '</td>';
+                 echo '<td>';
+                 echo $donors->mobile . PHP_EOL ;
+                 echo '</td>';
+                 echo '<td>';
+                 echo $donors->telephone . PHP_EOL ;
+                 echo '</td>';
+                 echo '<td>';
+                 echo $donors->email . PHP_EOL ;
+                 echo '</td>';
+                 echo '<td>';
+                 echo $donors->address->city . PHP_EOL ;
+                 echo '</td>';
+                 echo '<td>';
+                 echo $donors->address->province  . PHP_EOL ;
+                 echo '</td>';
+                 echo '<td>';
+                 echo $donors->address->country  . PHP_EOL ;
+                 echo '</td>';
+				 echo '</tr>';
+			}	 
+?>
+         </tbody>
+</table>
 </div>
-<?php } ?>
 </div>
 </div>
 <footer>
-<p><a href="home.php">Home</a> | <a href="requests.php">Requests</a> | <a href="offers.php">Offers</a> | <a href="donors.php">Donors</a> | <a href="contact.php">Contact Us</a></p>
-<p>Copyright &copy; 2014Donate-My-Stuff</p>
+<p><a href="home.php">Home</a> | <a href="requests.php">Requests</a> | <a href="offers.php">Offers</a> | <a href="#">Donors</a> | <a href="contact.php">Contact Us</a></p>
+<p>Copyright &copy; 2014 Donate-My-Stuff</p>
 </footer>
 </div>
 <!-- javascript at the bottom for fast page loading -->
@@ -112,23 +115,24 @@ $json = file_get_contents('http://za-donate-my-stuff.appspot.com/beneficiaries?b
 <script type="text/javascript" src="js/jquery.easing-sooper.js"></script>
 <script type="text/javascript" src="js/jquery.sooperfish.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="js/jquery.jeditable.mini.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 $('ul.sf-menu').sooperfish();
-oTable = $('#requests').dataTable({
+oTable = $('#donors').dataTable({
 "bJQueryUI": true,
 "sPaginationType": "full_numbers"
+
 });
 });
 </script>
 </body>
 </html>
 <?php
-
 }
 else
 {
 //user session not set.
-header("Location: login.php"); 
+header("Location: login.php");
 } 
 ?>

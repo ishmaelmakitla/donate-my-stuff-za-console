@@ -53,7 +53,7 @@ if (isset($_POST['registration'])) {
 		//JSONify - the data to send to the API
 		$postData = array(
 		'name' => $yourname,
-		'surname' => $yourusrname,
+		'surname' => $yoursurname,
 		'email' => $youremail,
 		'mobile' => $yourmobile,
 		'agency_name' => $youragency,
