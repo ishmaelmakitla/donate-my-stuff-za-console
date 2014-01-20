@@ -57,10 +57,22 @@ if(isset($_SESSION['userid']))
           <h3>Latest Offers</h3>
           <div class="sidebar_item">
             <ul>
-              <li><a href="#">Offer 1</a></li>
-              <li><a href="#">Offer  2</a></li>
-              <li><a href="#">Offer  3</a></li>
-              <li><a href="#">Offer  4</a></li>
+               <?php
+                $json = file_get_contents('http://za-donate-my-stuff.appspot.com/donationoffers');
+                $data = json_decode($json);
+                
+                //parse the json of requests
+                //We will show the following tags (BeneficiaryID, Name, GenderCode, Size, Age, and Age Restrictions)
+                //var_dump($data);
+                $count=0;
+                foreach($data->offers as $offers) {
+                if($count==4) break;
+                 echo '<li><a href="offers.php?action=donor_information&id='.$offers->donorid . PHP_EOL.'"><b>'.$offers->name . PHP_EOL.'</b></a><br /><br /></li>' ;
+                
+		$count++;
+                }
+
+                ?>
             </ul>
           </div>
           <div class="sidebar_base"></div>
