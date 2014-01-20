@@ -67,7 +67,7 @@ if(isset($_SESSION['userid']))
                 $count=0;
                 foreach($data->offers as $offers) {
                 if($count==4) break;
-                 echo '<li><a href="offers.php?action=donor_information&id='.$offers->donorid . PHP_EOL.'"><b>'.$offers->name . PHP_EOL.'</b></a><br /><br /></li>' ;
+                 echo '<li><a href="offers.php?action=donor_information&id='.$offers->donorid . PHP_EOL.'">'.$offers->name . PHP_EOL.'</a></li>' ;
                 
 		$count++;
                 }
