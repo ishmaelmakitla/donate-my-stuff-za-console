@@ -81,10 +81,23 @@ if(isset($_SESSION['userid']))
           <h3>Latest Requests</h3>
           <div class="sidebar_item">
             <ul>
-              <li><a href="#">Size 10 Black Shoes</a></li>
-              <li><a href="#">Grade 11 Mcbeth Book</a></li>
-              <li><a href="#">1 Short Black Trousers (Size 26)</a></li>
-              <li><a href="#">20 Soccer Boots (Size 3 - 8)</a></li>
+             
+              <?php
+                $json = file_get_contents('http://za-donate-my-stuff.appspot.com/donationrequests?beneficiary='.$_SESSION['userid']);
+                $data = json_decode($json);
+                
+                //parse the json of requests
+                //We will show the following tags (BeneficiaryID, Name, GenderCode, Size, Age, and Age Restrictions)
+                //var_dump($data);
+                $count=0;
+                foreach($data->requests as $requests) {
+                if($count==4) break;
+                <li><a href="requests.php?id=<?php echo $requests->beneficiaryid; ?>"><?php echo $requests->item->name; ?></a></li> 
+                
+                $count++;
+                }
+
+                ?>
             </ul>
           </div>
         </div>
