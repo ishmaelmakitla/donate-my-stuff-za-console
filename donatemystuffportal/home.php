@@ -125,7 +125,7 @@ date_default_timezone_set('Africa/Johannesburg'); //It works
                 $count=0;
                 foreach($data->requests as $requests) {
                 if($count==4) break;
-               echo ' <li><a href="requests.php?id=95a7f483-3571-44e6-90af-af6de72664d6">'.$requests->item->name.'</a></li>';
+               echo ' <li><a href="requests.php?id='.$_SESSION['userid'].'">'.$requests->item->name.'</a></li>';
 $count++;
 }
 
