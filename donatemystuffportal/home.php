@@ -125,7 +125,7 @@ date_default_timezone_set('Africa/Johannesburg'); //It works
                 $count=0;
                 foreach($data->requests as $requests) {
                 if($count==4) break;
-               echo ' <li><a href="requests.php?id='.$_SESSION['userid'].'">'.$requests->item->name.'</a></li>';
+               echo ' <li><a href="requests.php?id=95a7f483-3571-44e6-90af-af6de72664d6">'.$requests->item->name.'</a></li>';
 $count++;
 }
 
@@ -135,15 +135,18 @@ $count++;
 </div>
 </div>
 
-<?php      //Number of Offers
+<?php      
+$space='&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp &nbsp; &nbsp; &nbsp; &nbsp';
+
+//Number of Offers
                 $json = file_get_contents('http://za-donate-my-stuff.appspot.com/donationoffers');
                 $data = json_decode($json);
-                $countBlankets=0; $countShoes=0; $countBooks=0; $countSports=0; 
+                $countBlankets=0; $countShoes=0; $countBooks=0; $countClothes=0; 
                 foreach($data->offers as $offers) {
 		if($offers->item->type=='blankets') {   $countBlankets=$countBlankets + 1; }   //Count requested blanket
 	        if($offers->item->type=='shoes') {   $countShoes=$countShoes + 1; }   //Count requested blanket
 		if($offers->item->type=='book') {   $countBooks=$countBooks + 1; }   //Count requested blanket
-		if($offers->item->type=='sports') {   $countSports=$countSports + 1; }   //Count requested blanket
+		if($offers->item->type=='clothes') {   $countClothes=$countClothes + 1; }   //Count requested blanket
                 }
 ?>
      
@@ -155,8 +158,8 @@ $count++;
 		if($requests->item->type=='blankets') {   $countBlankets2=$countBlankets2 + 1; }   //Count requested blanket
 	        if($requests->item->type=='shoes') {   $countShoes2=$countShoes2 + 1; }   //Count requested blanket
 		if($requests->item->type=='book') {   $countBooks2=$countBooks2 + 1; }   //Count requested blanket
-		if($requests->item->type=='sports') {   $countSports2=$countSports2 + 1; }   //Count requested blanket
-		echo $requests->item->type;
+		if($requests->item->type=='clothes') {   $countClothes2=$countClothes2 + 1; }   //Count requested blanket
+	
 		
                 }
 ?>
@@ -164,29 +167,25 @@ $count++;
 <div class="content">
 <h1>Shoes</h1>
 <div class="content_item">
-<h4>Offered: <?php echo $countShoes.'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp'.
-    'Requested: '; ?></h4>
+<h4>Offered: <?php echo $countShoes.$space.'Requested: '.$countShoes2; ?></h4>
 </div>
 </div>
          <div class="content">
 <h1>Books</h1>
 <div class="content_item">
-<h4>Offered: <?php echo $countBooks.'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp'.
-    'Requested: '; ?></h4>
+<h4>Offered: <?php echo $countBooks.$space.'Requested: '.$countBooks2; ?></h4>
 </div>
 </div>
          <div class="content">
 <h1>Blankets</h1>
 <div class="content_item">
-<h4>Offered: <?php echo $countBlankets.'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp'.
-    'Requested: '; ?></h4>
+<h4>Offered: <?php echo $countBlankets.$space.'Requested: '.$countBlankets2; ?></h4>
 </div>
 </div>
          <div class="content">
-<h1>Sport</h1>
+<h1>Clothes</h1>
 <div class="content_item">
-  <h4>Offered: <?php echo $countSports.'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp'.
-   'Requested: '; ?></h4>              
+  <h4>Offered: <?php echo $countClothes.$space.'Requested: '.$countClothes2; ?></h4>              
 </div>
 </div>
 </div>
