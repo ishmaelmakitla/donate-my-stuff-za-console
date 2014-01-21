@@ -101,8 +101,7 @@ date_default_timezone_set('Africa/Johannesburg'); //It works
 <?php
                 $json = file_get_contents('http://za-donate-my-stuff.appspot.com/donationoffers');
                 $data = json_decode($json);
-                
-                $count=0;
+                $countRequested=0;
                 foreach($data->offers as $offers) {
                 if($count==4) break;
                  echo '<li><a href="offers.php?action=donor_information&id='.$offers->donorid . PHP_EOL.'">'.$offers->item->name . PHP_EOL.'</a></li>' ;
@@ -135,50 +134,59 @@ $count++;
 </div>
 </div>
 </div>
+
+<?php      //Number of Offers
+                $json = file_get_contents('http://za-donate-my-stuff.appspot.com/donationoffers');
+                $data = json_decode($json);
+                $countBlankets=0; $countShoes=0; $countBooks=0; $countSports=0; 
+                foreach($data->offers as $offers) {
+		if($offers->item->type=='blankets') {   $countBlankets=$countBlankets + 1; }   //Count requested blanket
+	        if($offers->item->type=='shoes') {   $countShoes=$countShoes + 1; }   //Count requested blanket
+		if($offers->item->type=='book') {   $countBooks=$countBooks + 1; }   //Count requested blanket
+		if($offers->item->type=='sports') {   $countSports=$countSports + 1; }   //Count requested blanket
+                }
+?>
+     
+<?php      //Number of Requests : a bit tricky for me for now
+                $json = file_get_contents('http://za-donate-my-stuff.appspot.com/donationrequests?beneficiary='.$_SESSION['userid']);
+                $data = json_decode($json);
+                $countBlankets2=0; $countShoes2=0; $countBooks2=0; $countSports2=0; 
+                foreach($data->requests as $requests) {
+		if($requests->item->type=='blankets') {   $countBlankets2=$countBlankets2 + 1; }   //Count requested blanket
+	        if($requests->item->type=='shoes') {   $countShoes2=$countShoes2 + 1; }   //Count requested blanket
+		if($requests->item->type=='book') {   $countBooks2=$countBooks2 + 1; }   //Count requested blanket
+		if($requests->item->type=='sports') {   $countSports2=$countSports2 + 1; }   //Count requested blanket
+		echo $requests->item->type;
+		
+                }
+?>
+  
 <div class="content">
 <h1>Shoes</h1>
 <div class="content_item">
-<?php
-                $json = file_get_contents('http://za-donate-my-stuff.appspot.com/donationoffers');
-                $data = json_decode($json);
-                
-              
-                $count=0;
-                foreach($data->offers as $offers) {
-		$blankets=count($offers->item->type);
-                if($count==1) break;
-	
-		if($offers->item->type=='shoes') {   
-		?>
-		<p>Donated: <?php echo count($blankets); ?></p>
-
-         <?php       }
-	         else {
-		     echo '<p>Sorry there are no recent donations made</p>';
-		 }
-	 
-                $count++;
-                }
-
-                ?>
-
-
+<h4>Offered: <?php echo $countShoes.'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp'.
+    'Requested: '; ?></h4>
 </div>
 </div>
          <div class="content">
 <h1>Books</h1>
 <div class="content_item">
+<h4>Offered: <?php echo $countBooks.'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp'.
+    'Requested: '; ?></h4>
 </div>
 </div>
          <div class="content">
 <h1>Blankets</h1>
 <div class="content_item">
+<h4>Offered: <?php echo $countBlankets.'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp'.
+    'Requested: '; ?></h4>
 </div>
 </div>
          <div class="content">
 <h1>Sport</h1>
 <div class="content_item">
-                
+  <h4>Offered: <?php echo $countSports.'&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp'.
+   'Requested: '; ?></h4>              
 </div>
 </div>
 </div>
